@@ -75,11 +75,15 @@ def main():
             Returns:
                 returns nothing
     """
-    try:
-        while True:
+    noInterrupt = True
+    boolHeavy = -1
+    speedLimit = -1
+    roadSpeed = -1
+    try: 
+        while noInterrupt:
             #Find if vehicle is heavy 
             while True:
-                boolHeavy = str(input("Are you driving a heavy vehicle[Y/N]: "))
+                boolHeavy = str(input("Are you driving a heavy vehicle[Y/N]: ")).upper()
                 if boolHeavy != "Y" and boolHeavy != "N":
                     print("404: Enter an appropriate value")
                 else:
@@ -90,21 +94,24 @@ def main():
                     break
 
             #Find speed limit
-            while True:
+            while noInterrupt:
                 try:
                     speedLimit = int(input("What is the road speed limit: "))
-                    break
-                except ValueError or speedLimit <= 0:
+                    if speedLimit > 0:
+                        break
+                except ValueError:
                         print("404: enter an appropriate value")
 
             #Find speed of vehicle
-            while True:
+            while noInterrupt:
                 try:
                     roadSpeed = float(input("What is the speed of your vehicle: "))
-                    break
+                    if roadSpeed > 0:
+                        break
                 except ValueError:
                     print("404: enter an appropriate value")
 
+            #call calc_penalty and print result
             result = calc_penalty(boolHeavy, roadSpeed, speedLimit)
             print(result)
             if str(input("Would you like to check for another vehicle [Y/N]: ")) == "N":
