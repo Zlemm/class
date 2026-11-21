@@ -40,7 +40,7 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
     penalties2 = [
         (0, 0.00, 0, 0),
         (10, 324.00, 1, 0),
-        (15, 509.00, 1, 0)
+        (15, 509.00, 1, 0),
         (25, 740.00, 3, 0),
         (30, 1017.00, 0, 3),
         (35, 1294.00, 0, 3),
@@ -50,20 +50,20 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
 
     if vehType:
         for i in range(6):
-            if penalties1[i][0] <= overSpeed < penalties2[i+1][0]:
-                result["penalties"] = [ [penalties2[i+1][1]], [penalties1[i+1][2]], [penalties1[i+1][3]] ]
+            if penalties2[i][0] <= overSpeed < penalties2[i+1][0]:
+                result["penalties"] = [ [penalties2[i+1][1]], [penalties2[i+1][2]], [penalties2[i+1][3]] ]
             if speedLimit > 100 and 10 <= overSpeed < 25:
-                result["penalties"] = [0, 3, 740.00]
+                result["penalties"] = [0, 3, 395.00]
             if overSpeed > 45:
-                result["penalties"] = [0, 12, 2127.00]
+                result["penalties"] = [0, 12, 988.00]
     else:
         for i in range(6):
             if penalties1[i][0] <= overSpeed < penalties1[i+1][0]:
                 result["penalties"] = [ [penalties1[i+1][1]], [penalties1[i+1][2]], [penalties1[i+1][3]] ]
             if speedLimit > 100 and 10 <= overSpeed < 25:
-                result["penalties"] = [0, 3, 395.00]
+                result["penalties"] = [0, 3, 740.00]
             if overSpeed > 45:
-                result["penalties"] = [0, 12, 988.00]
+                result["penalties"] = [0, 12, 2127.00]
 
     return result
 
@@ -84,7 +84,7 @@ def main():
         while noInterrupt:
             #Find if vehicle is heavy 
             while True:
-                boolHeavy = str(input("Are you driving a heavy vehicle[Y/N]: ")).upper()
+                boolHeavy = str(input("Are you driving a heavy vehicle[Y/N]: ")).strip().upper()
                 if boolHeavy != "Y" and boolHeavy != "N":
                     print("404: Enter an appropriate value")
                 else:
@@ -95,7 +95,7 @@ def main():
                     break
 
             #Find speed limit
-            while noInterrupt:
+            while True:
                 try:
                     speedLimit = int(input("What is the road speed limit: "))
                     if speedLimit > 0:
@@ -104,7 +104,7 @@ def main():
                         print("404: enter an appropriate value")
 
             #Find speed of vehicle
-            while noInterrupt:
+            while True:
                 try:
                     roadSpeed = float(input("What is the speed of your vehicle: "))
                     if roadSpeed > 0:
@@ -114,9 +114,18 @@ def main():
 
             #call calc_penalty and print result
             result = calc_penalty(boolHeavy, roadSpeed, speedLimit)
-            print(result)
-            if str(input("Would you like to check for another vehicle [Y/N]: ")) == "N":
-                break
+
+            while True:
+                try:
+                    choice = str(input("Would you like to check for another vehicle [Y/N]: "))
+                    if choice == "N":
+                        noInterrupt = False
+                        break
+                    elif choice == "Y":
+                        break
+                except ValueError:
+                    print("404: enter an appropriate value")
+                
     except KeyboardInterrupt:
         print("\nUser Keyboard Interrupt - Exiting")
 
