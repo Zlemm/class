@@ -11,9 +11,9 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
             roadSpeed (float): Speed of vehicle
             speedLimit (integer): Speed limit of the road
         Returns:
-            function returns a dictionary with values overspeed and penalty:
+            function returns a dictionary with values overspeed and penalties:
                 overspeed: difference between speed of vehicle and speed limit of road 
-                penalty: is a list containing the demerit, suspension and fine values
+                penalties: is a list containing the demerit, suspension and fine values
     """
 
     result = {
@@ -135,3 +135,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    
