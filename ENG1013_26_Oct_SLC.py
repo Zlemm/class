@@ -20,24 +20,73 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
         "overspeed": roadSpeed - speedLimit,
         "penalties": [0, 0, 0.00],  # [demerit, suspension, fine]
     }
-
+    
     overSpeed = int(roadSpeed - speedLimit)
 
-    return
+    if vehType:
+        if 0 <= overSpeed < 10:
+            result["penalties"] = [1, 0, 247.00]
+            return result
+        elif 10 <= overSpeed < 25:
+            result["penalties"] = [3, 0, 395.00]
+            return result
+        elif 25 <= overSpeed < 30:
+            result["penalties"] = [0, 3, 543.00]
+            return result
+        elif 30 <= overSpeed < 35:
+            result["penalties"] = [0, 3, 642.00]
+            return result
+        elif 35 <= overSpeed < 40:
+            result["penalties"] = [0, 6, 741.00]
+            return result
+        elif 40 <= overSpeed < 45:
+            result["penalties"] = [0, 6, 840.00]
+            return result
+        elif 45 <= overSpeed:
+            result["penalties"] = [0, 12, 988.00]
+            return result
+        elif 10 <= overSpeed < 25 and speedLimit > 100:
+            result["penalties"] = [0, 3, 395.00]
+            return result
+    else:
+        if 0 <= overSpeed < 10:
+            result["penalties"] = [1, 0, 324.00]
+            return result
+        elif 10 <= overSpeed < 15:
+            result["penalties"] = [3, 0, 509.00]
+            return result
+        elif 15 <= overSpeed < 25:
+            result["penalties"] = [3, 0, 740.00]
+            return result
+        elif 25 <= overSpeed < 30:
+            result["penalties"] = [0, 3, 1017.00]
+            return result
+        elif 30 <= overSpeed < 35:
+            result["penalties"] = [0, 3, 1294.00]
+            return result
+        elif 35 <= overSpeed < 40:
+            result["penalties"] = [0, 6, 1572.00]
+            return result
+        elif 40 <= overSpeed < 45:
+            result["penalties"] = [0, 6, 1849.00]
+            return result
+        elif 45 <= overSpeed:
+            result["penalties"] = [0, 12, 2127.00]
+            return result
+        elif 10 <= overSpeed < 25 and speedLimit > 100:
+            result["penalties"] = [0, 3, 740.00]
+            return result
 
 #Ensures input is correct and calls calc_penalty
 def main():
     """
     Ensures input is correct before calling calc_penalty
-            Parameters:
+            Parameters: 
                 None
             Returns:
                 returns nothing
     """
     noInterrupt = True
-    boolHeavy = -1
-    speedLimit = -1
-    roadSpeed = -1
     try: 
         while noInterrupt:
             #Find if vehicle is heavy 
@@ -74,15 +123,12 @@ def main():
             result = calc_penalty(boolHeavy, roadSpeed, speedLimit)
 
             while True:
-                try:
-                    choice = str(input("Would you like to check for another vehicle [Y/N]: "))
-                    if choice == "N":
-                        noInterrupt = False
-                        break
-                    elif choice == "Y":
-                        break
-                except ValueError:
-                    print("404: enter an appropriate value")
+                choice = str(input("Would you like to check for another vehicle [Y/N]: "))
+                if choice == "N":
+                    noInterrupt = False
+                    break
+                elif choice == "Y":
+                    break
                 
     except KeyboardInterrupt:
         print("\nUser Keyboard Interrupt - Exiting")
