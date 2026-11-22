@@ -22,6 +22,9 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
     }
 
     overSpeed = int(roadSpeed - speedLimit)
+    if overSpeed < 0:
+        result["overspeed"] = 0 
+        return result
     
     #(minimum overspeed, demerit points, suspension, fine)
     penalties1 = [
@@ -48,7 +51,7 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
     if vehType:
         for i in range(6):
             if penalties2[i][0] <= overSpeed < penalties2[i+1][0]:
-                result["penalties"] = [ [penalties2[i+1][1]], [penalties2[i+1][2]], [penalties2[i+1][3]] ]
+                result["penalties"] = [[penalties2[i+1][1]], [penalties2[i+1][2]], [penalties2[i+1][3]]]
             if speedLimit > 100 and 10 <= overSpeed < 25:
                 result["penalties"] = [0, 3, 395.00]
             if overSpeed > 45:
@@ -56,13 +59,11 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
     else:
         for i in range(6):
             if penalties1[i][0] <= overSpeed < penalties1[i+1][0]:
-                result["penalties"] = [ [penalties1[i+1][1]], [penalties1[i+1][2]], [penalties1[i+1][3]] ]
+                result["penalties"] = [[penalties1[i+1][1]], [penalties1[i+1][2]], [penalties1[i+1][3]]]
             if speedLimit > 100 and 10 <= overSpeed < 25:
                 result["penalties"] = [0, 3, 740.00]
             if overSpeed > 45:
                 result["penalties"] = [0, 12, 2127.00]
-
-    return result
 
 #Ensures input is correct and calls calc_penalty
 def main():
