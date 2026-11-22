@@ -21,61 +21,50 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
         "penalties": [0, 0, 0.00],  # [demerit, suspension, fine]
     }
     
-    overSpeed = int(roadSpeed - speedLimit)
+    overSpeed = round(roadSpeed - speedLimit, 2)
+    roundedOverSpeed = int(overSpeed)
+
 
     if vehType:
-        if 0 <= overSpeed < 10:
-            result["penalties"] = [1, 0, 247.00]
-            return result
-        elif 10 <= overSpeed < 25:
-            result["penalties"] = [3, 0, 395.00]
-            return result
-        elif 25 <= overSpeed < 30:
-            result["penalties"] = [0, 3, 543.00]
-            return result
-        elif 30 <= overSpeed < 35:
-            result["penalties"] = [0, 3, 642.00]
-            return result
-        elif 35 <= overSpeed < 40:
-            result["penalties"] = [0, 6, 741.00]
-            return result
-        elif 40 <= overSpeed < 45:
-            result["penalties"] = [0, 6, 840.00]
-            return result
-        elif 45 <= overSpeed:
-            result["penalties"] = [0, 12, 988.00]
-            return result
-        elif 10 <= overSpeed < 25 and speedLimit > 100:
-            result["penalties"] = [0, 3, 395.00]
-            return result
-    else:
-        if 0 <= overSpeed < 10:
+        if 0 <= roundedOverSpeed < 10:
             result["penalties"] = [1, 0, 324.00]
-            return result
-        elif 10 <= overSpeed < 15:
+        elif 10 <= roundedOverSpeed < 15:
             result["penalties"] = [3, 0, 509.00]
-            return result
-        elif 15 <= overSpeed < 25:
+        elif 15 <= roundedOverSpeed < 25:
             result["penalties"] = [3, 0, 740.00]
-            return result
-        elif 25 <= overSpeed < 30:
+        elif 25 <= roundedOverSpeed < 30:
             result["penalties"] = [0, 3, 1017.00]
-            return result
-        elif 30 <= overSpeed < 35:
+        elif 30 <= roundedOverSpeed < 35:
             result["penalties"] = [0, 3, 1294.00]
-            return result
-        elif 35 <= overSpeed < 40:
+        elif 35 <= roundedOverSpeed < 40:
             result["penalties"] = [0, 6, 1572.00]
-            return result
-        elif 40 <= overSpeed < 45:
+        elif 40 <= roundedOverSpeed < 45:
             result["penalties"] = [0, 6, 1849.00]
-            return result
-        elif 45 <= overSpeed:
+        elif 45 <= roundedOverSpeed:
             result["penalties"] = [0, 12, 2127.00]
-            return result
-        elif 10 <= overSpeed < 25 and speedLimit > 100:
+        elif 10 <= roundedOverSpeed < 25 and speedLimit > 100:
             result["penalties"] = [0, 3, 740.00]
-            return result
+
+    else:
+        if 0 <= roundedOverSpeed < 10:
+            result["penalties"] = [1, 0, 247.00]
+        elif 10 <= roundedOverSpeed < 25:
+            result["penalties"] = [3, 0, 395.00]
+        elif 25 <= roundedOverSpeed < 30:
+            result["penalties"] = [0, 3, 543.00]
+        elif 30 <= roundedOverSpeed < 35:
+            result["penalties"] = [0, 3, 642.00]
+        elif 35 <= roundedOverSpeed < 40:
+            result["penalties"] = [0, 6, 741.00]
+        elif 40 <= roundedOverSpeed < 45:
+            result["penalties"] = [0, 6, 840.00]
+        elif 45 <= roundedOverSpeed:
+            result["penalties"] = [0, 12, 988.00]
+        elif 10 <= roundedOverSpeed < 25 and speedLimit > 100:
+            result["penalties"] = [0, 3, 395.00]
+
+    return result
+
 
 #Ensures input is correct and calls calc_penalty
 def main():
