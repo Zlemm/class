@@ -21,9 +21,8 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
         "penalties": [0, 0, 0.00],  # [demerit, suspension, fine]
     }
     
-    overSpeed = round(roadSpeed - speedLimit, 2)
-    roundedOverSpeed = int(overSpeed)
-
+    result["overSpeed"] = round(roadSpeed - speedLimit, 2)
+    roundedOverSpeed = int(result["overSpeed"])
 
     if vehType:
         if 0 <= roundedOverSpeed < 10:
