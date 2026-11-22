@@ -81,12 +81,15 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
 def main():
     """
     Ensures input is correct before calling calc_penalty
-            Parameters: 
+            Parameters:
                 None
             Returns:
                 returns nothing
     """
     noInterrupt = True
+    boolHeavy = -1
+    speedLimit = -1
+    roadSpeed = -1
     try: 
         while noInterrupt:
             #Find if vehicle is heavy 
@@ -121,19 +124,33 @@ def main():
 
             #call calc_penalty and print result
             result = calc_penalty(boolHeavy, roadSpeed, speedLimit)
+            overSpeed = result["overspeed"]
+            demerit = result["penalties"][0]
+            suspension = result["penalties"][1]
+            fine = result["penalties"][2]
+
+            if demerit == 0:
+                demerit = "None"
+            if suspension == 0:
+                suspension = "None"
+            if fine == 0:
+                fine = "None"
+            
+            print(f"Overspeed: {overSpeed:.2f}\nDemerit: {demerit}\nSuspension: {suspension}\nFine: {fine}")
 
             while True:
-                choice = str(input("Would you like to check for another vehicle [Y/N]: "))
-                if choice == "N":
-                    noInterrupt = False
-                    break
-                elif choice == "Y":
-                    break
+                try:
+                    choice = str(input("Would you like to check for another vehicle [Y/N]: "))
+                    if choice == "N":
+                        noInterrupt = False
+                        break
+                    elif choice == "Y":
+                        break
+                except ValueError:
+                    print("404: enter an appropriate value")
                 
     except KeyboardInterrupt:
         print("\nUser Keyboard Interrupt - Exiting")
 
 if __name__ == "__main__":
     main()
-
-    
