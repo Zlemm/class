@@ -11,13 +11,13 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
             roadSpeed (float): Speed of vehicle
             speedLimit (integer): Speed limit of the road
         Returns:
-            function returns a dictionary with values overspeed and penalties:
-                overspeed: difference between speed of vehicle and speed limit of road 
+            function returns a dictionary with values overSpeed and penalties:
+                overSpeed: difference between speed of vehicle and speed limit of road 
                 penalties: is a list containing the demerit, suspension and fine values
     """
 
     result = {
-        "overspeed": roadSpeed - speedLimit,
+        "overSpeed": roadSpeed - speedLimit,
         "penalties": [0, 0, 0.00],  # [demerit, suspension, fine]
     }
     
@@ -41,7 +41,7 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
             result["penalties"] = [0, 6, 1849.00]
         elif 45 <= roundedOverSpeed:
             result["penalties"] = [0, 12, 2127.00]
-        elif 10 <= roundedOverSpeed < 25 and speedLimit > 100:
+        if 10 <= roundedOverSpeed < 25 and speedLimit > 100:
             result["penalties"] = [0, 3, 740.00]
 
     else:
@@ -59,7 +59,7 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
             result["penalties"] = [0, 6, 840.00]
         elif 45 <= roundedOverSpeed:
             result["penalties"] = [0, 12, 988.00]
-        elif 10 <= roundedOverSpeed < 25 and speedLimit > 100:
+        if 10 <= roundedOverSpeed < 25 and speedLimit > 100:
             result["penalties"] = [0, 3, 395.00]
 
     return result
@@ -70,7 +70,7 @@ def main():
     """
     Ensures input is correct before calling calc_penalty
             Parameters:
-                None
+                Has no parameters
             Returns:
                 returns nothing
     """
@@ -112,7 +112,7 @@ def main():
 
             #call calc_penalty and print result
             result = calc_penalty(boolHeavy, roadSpeed, speedLimit)
-            overSpeed = result["overspeed"]
+            overSpeed = result["overSpeed"]
             demerit = result["penalties"][0]
             suspension = result["penalties"][1]
             fine = result["penalties"][2]
@@ -124,7 +124,7 @@ def main():
             if fine == 0:
                 fine = "None"
             
-            print(f"Overspeed: {overSpeed:.2f}\nDemerit: {demerit}\nSuspension: {suspension}\nFine: {fine}")
+            print(f"overSpeed: {overSpeed:.2f}\nDemerit: {demerit}\nSuspension: {suspension}\nFine: {fine}")
 
             while True:
                 try:
