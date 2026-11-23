@@ -25,7 +25,7 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
     roundedOverSpeed = int(result["overSpeed"])
 
     if vehType:
-        if 0 <= roundedOverSpeed < 10:
+        if 0 < roundedOverSpeed < 10:
             result["penalties"] = [1, 0, 324.00]
         elif 10 <= roundedOverSpeed < 15:
             result["penalties"] = [3, 0, 509.00]
@@ -45,7 +45,7 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
             result["penalties"] = [0, 3, 740.00]
 
     else:
-        if 0 <= roundedOverSpeed < 10:
+        if 0 < roundedOverSpeed < 10:
             result["penalties"] = [1, 0, 247.00]
         elif 10 <= roundedOverSpeed < 25:
             result["penalties"] = [3, 0, 395.00]
