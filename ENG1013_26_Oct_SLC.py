@@ -1,5 +1,6 @@
 # Author name: Mayan Manohar
 # Last modified date: 18/11/2026
+# File version number = 6.0
 # File version number = 2.3.0
 
 #calculates the penalty and returns dict in [demerit, suspension, fine] format
