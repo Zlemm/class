@@ -12,17 +12,17 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
             speedLimit (integer): Speed limit of the road
         Returns:
             function returns a dictionary with values overSpeed and penalties:
-                overSpeed: difference between speed of vehicle and speed limit of road 
+                overspeed: difference between speed of vehicle and speed limit of road 
                 penalties: is a list containing the demerit, suspension and fine values
     """
 
     result = {
-        "overSpeed": roadSpeed - speedLimit,
+        "overspeed": roadSpeed - speedLimit,
         "penalties": [0, 0, 0.00],  # [demerit, suspension, fine]
     }
     
-    result["overSpeed"] = round(roadSpeed - speedLimit, 2)
-    roundedOverSpeed = int(result["overSpeed"])
+    result["overspeed"] = roadSpeed - speedLimit, 2
+    roundedOverSpeed = int(result["overspeed"])
 
     if vehType:
         if 0 < roundedOverSpeed < 10:
@@ -99,7 +99,7 @@ def main():
                     if speedLimit > 0:
                         break
                 except ValueError:
-                        print("404: enter an appropriate value")
+                    print("404: enter an appropriate value")
 
             #Find speed of vehicle
             while True:
@@ -117,6 +117,8 @@ def main():
             suspension = result["penalties"][1]
             fine = result["penalties"][2]
 
+            if overSpeed < 0:
+                overSpeed = 0
             if demerit == 0:
                 demerit = "None"
             if suspension == 0:
