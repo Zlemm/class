@@ -21,7 +21,7 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
         "penalties": [0, 0, 0.00],  # [demerit, suspension, fine]
     }
     
-    result["overspeed"] = roadSpeed - speedLimit, 2
+    result["overspeed"] = roadSpeed - speedLimit
     roundedOverSpeed = int(result["overspeed"])
 
     if vehType:
@@ -112,7 +112,7 @@ def main():
 
             #call calc_penalty and print result
             result = calc_penalty(boolHeavy, roadSpeed, speedLimit)
-            overSpeed = result["overSpeed"]
+            overSpeed = result["overspeed"]
             demerit = result["penalties"][0]
             suspension = result["penalties"][1]
             fine = result["penalties"][2]
@@ -140,7 +140,7 @@ def main():
                     print("404: enter an appropriate value")
                 
     except KeyboardInterrupt:
-        print("\nUser Keyboard Interrupt - Exiting")
+        print("User Keyboard Interrupt - Exiting")
 
 if __name__ == "__main__":
     main()
