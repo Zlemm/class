@@ -1,17 +1,18 @@
 # Author name: Mayan Manohar
-# Last modified date: 18/11/2026
-# File version number = 2.3.0
+# Last modified date: 23/11/2026
+# File version number = 2.4.0
 
 #calculates the penalty and returns dict in [demerit, suspension, fine] format
 def calc_penalty(vehType, roadSpeed, speedLimit):
     """
     Used to calculate the penalties the person faces depending on their speeding value
+    Penalties depend on the vehicle type, how far over the limit the driver is, and the road's speed limit.
         Parameters:
             vehType (bool): Is vehicle heavy? True if yes, False if no
             roadSpeed (float): Speed of vehicle
             speedLimit (integer): Speed limit of the road
         Returns:
-            function returns a dictionary with values overSpeed and penalties:
+            function returns a dictionary with values overspeed and penalties:
                 overspeed: difference between speed of vehicle and speed limit of road 
                 penalties: is a list containing the demerit, suspension and fine values
     """
@@ -23,6 +24,8 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
     
     result["overspeed"] = roadSpeed - speedLimit
     roundedOverSpeed = int(result["overspeed"])
+    if result["overspeed"] < 0:
+        result["overspeed"] = 0
 
     if vehType:
         if 0 < roundedOverSpeed < 10:
@@ -64,22 +67,25 @@ def calc_penalty(vehType, roadSpeed, speedLimit):
 
     return result
 
-
 #Ensures input is correct and calls calc_penalty
 def main():
     """
-    Ensures input is correct before calling calc_penalty
+    Asks the user for vehicle type, speed limit and vehicle speed, and validates each input.
+    Calls calc_penalty, prints the result, then asks if they want to check another vehicle.
             Parameters:
                 Has no parameters
             Returns:
                 returns nothing
     """
+
     noInterrupt = True
     boolHeavy = -1
     speedLimit = -1
     roadSpeed = -1
+
     try: 
         while noInterrupt:
+
             #Find if vehicle is heavy 
             while True:
                 boolHeavy = str(input("Are you driving a heavy vehicle[Y/N]: ")).strip().upper()
@@ -98,6 +104,7 @@ def main():
                     speedLimit = int(input("What is the road speed limit: "))
                     if speedLimit > 0:
                         break
+                    print("404: enter an appropriate value")
                 except ValueError:
                     print("404: enter an appropriate value")
 
@@ -107,6 +114,7 @@ def main():
                     roadSpeed = float(input("What is the speed of your vehicle: "))
                     if roadSpeed > 0:
                         break
+                    print("404: enter an appropriate value")
                 except ValueError:
                     print("404: enter an appropriate value")
 
@@ -117,8 +125,6 @@ def main():
             suspension = result["penalties"][1]
             fine = result["penalties"][2]
 
-            if overSpeed < 0:
-                overSpeed = 0
             if demerit == 0:
                 demerit = "None"
             if suspension == 0:
